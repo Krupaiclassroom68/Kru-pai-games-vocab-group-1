@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kru Pai Classroom — Odd One Out (English) • 20 ข้อ</title>
+<style>
+  :root{
+    --ink:#f3f4f6; --space:#0b1222;
+    --panel:#0f172a;
+    --barfg:linear-gradient(90deg,#f472b6,#60a5fa);
+    --tokenA:#f9a8d4; --tokenB:#93c5fd;
+    --ok:#34d399; --no:#fb7185;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; font-family:"Nunito",system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans Thai","Noto Sans",sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(1200px 800px at 50% -15%, rgba(255,255,255,0.06), transparent),
+      radial-gradient(1200px 900px at 50% 120%, rgba(255,255,255,0.05), transparent),
+      linear-gradient(180deg, #091327, var(--space));
+    min-height:100vh; overflow:hidden;
+  }
+  .container{ width:min(1100px,95vw); margin:0 auto; padding:16px 0 44px }
+  .topbrand{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px }
+  .logo{ display:flex; align-items:center; gap:10px; font-weight:900; font-size: clamp(22px,3.6vw,34px); color:#fafafa; }
+  .logo-badge{ width:40px; height:40px; border-radius:50%; display:grid; place-items:center;
+    background:linear-gradient(180deg,#f472b6,#60a5fa); color:#081225; font-weight:900; box-shadow:0 6px 16px rgba(0,0,0,.4); }
+  .badge{ border:1.5px solid rgba(255,255,255,.1); border-radius:999px; padding:8px 12px; font-weight:800;
+    background:rgba(255,255,255,.06); color:#f3f4f6; box-shadow:0 6px 16px rgba(0,0,0,.35) }
+
+  .card{ background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+    border:1.5px solid rgba(255,255,255,.08); border-radius:22px; box-shadow:0 14px 38px rgba(0,0,0,.5);
+    padding: clamp(14px,2vw,22px); }
+
+  h1{ margin:0 0 6px 0; font-size: clamp(26px,4.3vw,44px); font-weight:900; color:#fff;
+    text-shadow: 0 2px 0 rgba(0,0,0,.5), 0 10px 30px rgba(0,0,0,.65); }
+  .subtitle{ color:#cbd5e1 }
+  .row{display:flex; flex-wrap:wrap; gap:12px}
+  .col{flex:1 1 260px}
+  label{ color:#e5e7eb; font-weight:800 }
+  input, select{
+    width:100%; padding:12px 12px; border-radius:14px; border:2px solid rgba(255,255,255,.1);
+    background:#0f172a; color:#fff; outline:none; font-size:16px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+  }
+  .btn{
+    display:inline-block; border:none; cursor:pointer; padding:12px 18px; border-radius:16px;
+    font-weight:900; font-size:16px; color:#0b1020;
+    background:linear-gradient(180deg,#f9a8d4,#93c5fd);
+    box-shadow:0 8px 0 #511a3d, 0 18px 30px rgba(0,0,0,.5); transition: transform .06s;
+  }
+  .btn.ghost{ background:transparent; border:2px solid rgba(255,255,255,.25); color:#e5e7eb; box-shadow:none }
+  .btn.flat{ background:#1f2a44; color:#fff; box-shadow:none; border:2px solid rgba(255,255,255,.15) }
+  .btn:active{ transform: translateY(2px) }
+  .btn-group{ display:flex; gap:10px; flex-wrap:wrap }
+  .topgap{ margin-top:14px }
+
+  .controlStrip{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:10px 12px; border-radius:16px; background: rgba(15,23,42,.7);
+    border:1.5px solid rgba(255,255,255,.12); box-shadow:0 8px 26px rgba(0,0,0,.6); margin-bottom:10px;
+    backdrop-filter: blur(6px);
+  }
+  .orderText{ font-size: clamp(22px, 3vw, 30px); font-weight:900; letter-spacing:.2px; color:#ffffff;
+    text-shadow: 0 0 0.5px rgba(0,0,0,.9), 0 2px 6px rgba(0,0,0,.9), 0 0 18px rgba(99,102,241,.45), 0 0 40px rgba(244,114,182,.45); }
+  .orderText .expr{ color:#f9a8d4; font-size:1.02em }
+  .timerBox{ flex:1; height:10px; border-radius:999px; background:rgba(255,255,255,.12); overflow:hidden; border:1px solid rgba(255,255,255,.18) }
+  .timerFill{ height:100%; width:100%; background:var(--barfg); transform-origin:left center }
+  .timerLabel{ min-width:110px; text-align:right; font-weight:900; color:#f9fafb }
+
+  .stage{
+    position:relative; height:66vh; min-height:520px; border-radius:22px;
+    border:1.5px solid rgba(255,255,255,.08);
+    background:
+      radial-gradient(900px 600px at 50% -10%, rgba(255,255,255,.06), transparent),
+      radial-gradient(900px 700px at 50% 120%, rgba(255,255,255,.05), transparent),
+      #0a1226;
+    overflow:hidden;
+  }
+  .stars{ position:absolute; inset:0; pointer-events:none; }
+  .starPix{ position:absolute; width:2px; height:2px; background:#e0f2fe; border-radius:50%; animation: twinkle 2.4s infinite ease-in-out }
+  @keyframes twinkle{ 0%,100%{opacity:.18} 50%{opacity:1} }
+
+  .hud{ position:absolute; top:8px; left:8px; right:8px; display:flex; justify-content:space-between; align-items:center; gap:8px; pointer-events:none; }
+  .pill{ pointer-events:auto; background:rgba(15,23,42,.7); border:1.5px solid rgba(255,255,255,.12);
+    border-radius:999px; padding:8px 12px; box-shadow:0 6px 18px rgba(0,0,0,.55); font-size:14px; font-weight:800; color:#e5e7eb; }
+
+  .token{
+    position:absolute; display:inline-flex; align-items:center; justify-content:center;
+    padding: 12px 16px; min-width: 150px; min-height: 64px; border-radius: 999px;
+    font-weight:900; font-size: clamp(20px, 2.6vw, 26px); color:#081225;
+    background:
+      radial-gradient(circle at 28% 28%, rgba(255,255,255,.95), rgba(255,255,255,.6) 26%, rgba(255,255,255,0) 30%),
+      radial-gradient(circle at 72% 72%, rgba(0,0,0,.15), transparent 50%),
+      linear-gradient(145deg, var(--tokenA), var(--tokenB));
+    border:3px solid rgba(255,255,255,.85);
+    box-shadow: inset 0 12px 22px rgba(255,255,255,.28), inset 0 -10px 18px rgba(0,0,0,.25), 0 18px 36px rgba(0,0,0,.65);
+    cursor:pointer; user-select:none; transform: translate(-50%,-50%); white-space: nowrap; text-align:center;
+  }
+  .token:hover{ outline:4px solid rgba(255,255,255,.6) }
+
+  .feedback{
+    position:absolute; bottom:10px; left:50%; transform:translateX(-50%);
+    font-weight:900; padding:8px 12px; border-radius:12px; border:1.5px solid rgba(255,255,255,.15);
+    background:rgba(15,23,42,.7); display:none; font-size:18px; color:#e5e7eb; box-shadow:0 8px 18px rgba(0,0,0,.55);
+  }
+  .ok{ color:var(--ok) } .no{ color:var(--no) }
+
+  .pop{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.45); z-index:999; }
+  .popCard{ background:#0f172a; color:#e5e7eb; border:2px solid rgba(255,255,255,.12); border-radius:22px; padding:20px; width:min(560px,92vw); box-shadow:0 20px 40px rgba(0,0,0,.8); text-align:center; }
+  .bigText{ font-size:56px; font-weight:900; color:#f472b6; text-shadow:0 10px 30px rgba(0,0,0,.6) }
+  .pop .btn{ margin-top:12px }
+
+  @media (max-width: 640px){
+    .token{ min-width: 130px; min-height: 56px; font-size: 18px }
+    .timerLabel{ min-width:100px }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="topbrand">
+    <div class="logo"><div class="logo-badge">KP</div><div>Kru Pai Classroom</div></div>
+    <div class="badge">Odd One Out — 20 ข้อ</div>
+  </div>
+
+  <!-- HOME -->
+  <section id="home" class="card">
+    <h1>Odd One Out (English)</h1>
+    <div class="subtitle">เลือกคำที่ “ไม่เข้าพวก” • 20 ข้อ • กดผิด = ข้ามทันที • เด็กประถม–ม.ต้นเล่นได้</div>
+    <div class="row topgap">
+      <div class="col"><label>ชื่อผู้เล่น</label><input id="playerName" placeholder="พิมพ์ชื่อ..." /></div>
+      <div class="col"><label>เวลาต่อข้อ</label>
+        <select id="timeSel">
+          <option value="10">10 วิ</option>
+          <option value="15" selected>15 วิ</option>
+          <option value="20">20 วิ</option>
+        </select>
+      </div>
+      <div class="col"><label>โหมดเสียง</label>
+        <select id="voiceSel">
+          <option value="both" selected>พูด+บี๊บ</option>
+          <option value="beep">เฉพาะบี๊บ</option>
+          <option value="mute">ปิดเสียง</option>
+        </select>
+      </div>
+    </div>
+    <div class="topgap btn-group">
+      <button class="btn" id="startBtn">เริ่มเล่น 🎮</button>
+      <button class="btn ghost" id="howBtn">วิธีเล่น ❓</button>
+    </div>
+  </section>
+
+  <!-- HOWTO -->
+  <section id="howto" class="card" style="display:none">
+    <h1>วิธีเล่น</h1>
+    <ol>
+      <li>อ่านข้อความหมวด เช่น <b>fruits / animals / verbs / school items</b></li>
+      <li>คลิกคำที่ <b>ไม่เข้าพวก (Odd One Out)</b> ให้ทันเวลา</li>
+      <li>มีลูกแก้วทั้งหมด <b>6 ลูก</b> เคลื่อนที่ไปมา</li>
+      <li><b>ตอบผิด → ข้ามข้อต่อไปทันที</b></li>
+      <li>ครบ 20 ข้อ ระบบสรุปคะแนนและฉลอง 🎉</li>
+    </ol>
+    <div class="topgap"><button class="btn flat" id="backHome1">กลับ</button></div>
+  </section>
+
+  <!-- GAME -->
+  <section id="game" class="card" style="display:none">
+    <div class="controlStrip">
+      <div class="orderText" id="orderText">หมวด: <span class="expr">—</span> • เลือกคำที่ไม่เข้าพวก</div>
+      <div class="timerBox"><div id="timerFill" class="timerFill"></div></div>
+      <div class="timerLabel">⏱️ <span id="timerNum">15</span> วิ</div>
+    </div>
+
+    <div class="stage" id="stage">
+      <div class="hud">
+        <div class="pill">ผู้เล่น: <b id="hudName">-</b></div>
+        <div class="pill">ข้อ: <b id="hudQ">1</b>/20</div>
+        <div class="pill">ถูก: <b id="hudRight">0</b></div>
+      </div>
+      <div class="stars" id="stars"></div>
+      <div class="feedback" id="feedback"></div>
+    </div>
+
+    <div class="topgap btn-group" style="justify-content:space-between">
+      <button class="btn ghost" id="quitBtn">ออก</button>
+      <button class="btn" id="skipBtn">ข้าม</button>
+    </div>
+  </section>
+
+  <!-- GAME RESULT -->
+  <div class="pop" id="gamePop">
+    <div class="popCard">
+      <div style="font-size:20px; font-weight:800;">จบเกม Odd One Out!</div>
+      <div class="bigText" id="gameScore">20 / 20</div>
+      <div style="margin-top:6px; font-weight:800;" id="remark"></div>
+      <div class="btn-group" style="justify-content:center">
+        <button class="btn" id="playAgainBtn">เล่นอีกครั้ง</button>
+        <button class="btn flat" id="homeBtn2">กลับหน้าแรก</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ======= DATA: 20 Odd-One-Out sets (6 items each) ======= */
+const QUIZ = [
+  { cat:"Fruits", choices:["apple","banana","grape","mango","tiger","orange"], odd:"tiger" },
+  { cat:"Animals", choices:["lion","tiger","elephant","carrot","zebra","giraffe"], odd:"carrot" },
+  { cat:"Colors", choices:["red","blue","green","yellow","table","purple"], odd:"table" },
+  { cat:"School items", choices:["pencil","ruler","eraser","notebook","apple","marker"], odd:"apple" },
+  { cat:"Days of the week", choices:["Monday","Friday","Sunday","April","Tuesday","Wednesday"], odd:"April" },
+  { cat:"Sports", choices:["soccer","tennis","basketball","swim","baseball","volleyball"], odd:"swim" },
+  { cat:"Clothes", choices:["shirt","skirt","pants","jacket","bread","dress"], odd:"bread" },
+  { cat:"Weather", choices:["sunny","rainy","cloudy","windy","stormy","pencil"], odd:"pencil" },
+  { cat:"Jobs", choices:["teacher","doctor","nurse","police","monkey","farmer"], odd:"monkey" },
+  { cat:"Places", choices:["school","bank","hospital","library","tiger","supermarket"], odd:"tiger" },
+  { cat:"Verbs (action)", choices:["run","jump","think","eat","blue","read"], odd:"blue" },
+  { cat:"Body parts", choices:["hand","leg","foot","nose","eye","pizza"], odd:"pizza" },
+  { cat:"Vehicles", choices:["car","bus","train","plane","ship","banana"], odd:"banana" },
+  { cat:"Bedroom items", choices:["bed","pillow","blanket","lamp","chair","soccer"], odd:"soccer" },
+  { cat:"Numbers (one–ten)", choices:["one","two","five","seven","cat","nine"], odd:"cat" },
+  { cat:"Drinks", choices:["water","milk","juice","tea","coffee","pencil"], odd:"pencil" },
+  { cat:"Shapes", choices:["circle","triangle","square","rectangle","purple","oval"], odd:"purple" },
+  { cat:"Opposites (hot/cold)", choices:["hot","cold","warm","sunny","cool","freezing"], odd:"sunny" },
+  { cat:"Kitchen items", choices:["spoon","fork","knife","bowl","plate","elephant"], odd:"elephant" },
+  { cat:"Furniture", choices:["table","chair","sofa","desk","cup","wardrobe"], odd:"cup" }
+];
+
+/* ======= UTIL ======= */
+const $=id=>document.getElementById(id);
+const show = el=>el.style.display="";
+const hide = el=>el.style.display="none";
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+/* ======= AUDIO ======= */
+let audioCtx=null;
+function ensureAudio(){ if(!audioCtx){ audioCtx=new (window.AudioContext||window.webkitAudioContext)(); } }
+function beep(freq=880, dur=.1, type="triangle", vol=.22){
+  const v = $('voiceSel').value;
+  if(v==="mute") return;
+  try{ ensureAudio(); const osc=audioCtx.createOscillator(), g=audioCtx.createGain();
+    osc.type=type; osc.frequency.value=freq; g.gain.value=vol; osc.connect(g); g.connect(audioCtx.destination);
+    osc.start(); setTimeout(()=>osc.stop(), dur*1000);
+  }catch(e){}
+}
+function okSFX(){ if($('voiceSel').value!=="mute") { beep(900,.08,"triangle",.25); setTimeout(()=>beep(1200,.08,"triangle",.22),110); } }
+function noSFX(){ if($('voiceSel').value!=="mute") beep(240,.12,"sawtooth",.22); }
+
+/* ======= STARS & FX ======= */
+function sparkleAt(x,y,count=12){
+  for(let i=0;i<count;i++){
+    const s=document.createElement("div");
+    s.style.position="fixed"; s.style.width="10px"; s.style.height="10px";
+    s.style.left=(x + (Math.random()*80-40))+"px"; s.style.top=(y + (Math.random()*40-20))+"px";
+    s.style.background="radial-gradient(circle at 35% 35%, #fff9d5, #f9a8d4 60%, #93c5fd)";
+    s.style.clipPath="polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)";
+    s.style.filter="drop-shadow(0 3px 4px rgba(0,0,0,.6))";
+    s.style.pointerEvents="none"; s.style.zIndex=999;
+    s.animate([{transform:"translateY(-6px)",opacity:1},{transform:"translateY(36px) scale(.7)",opacity:0}],{duration:650,easing:"ease-out",fill:"forwards"});
+    document.body.appendChild(s); setTimeout(()=>s.remove(), 680);
+  }
+}
+function confettiBurst(){
+  const w=window.innerWidth;
+  for(let i=0;i<120;i++){
+    const b=document.createElement("div");
+    b.style.position="fixed"; b.style.width="8px"; b.style.height="14px"; b.style.borderRadius="3px";
+    b.style.left=(Math.random()*w)+"px"; b.style.top=(-20 - Math.random()*80)+"px";
+    b.style.background=`hsl(${Math.random()*360},85%,65%)`; b.style.transform=`rotate(${Math.random()*360}deg)`;
+    b.style.zIndex=1000; b.style.pointerEvents="none";
+    const dur=1200+Math.random()*900;
+    b.animate([{transform:b.style.transform,opacity:1},{transform:`translateY(70vh) rotate(${Math.random()*720}deg)`,opacity:1}],{duration:dur,easing:"ease-in"});
+    document.body.appendChild(b); setTimeout(()=>b.remove(), dur+60);
+  }
+}
+function buildStars(){
+  const stars = $('stars'); stars.innerHTML="";
+  for(let i=0;i<140;i++){
+    const s=document.createElement("div"); s.className="starPix";
+    s.style.left = Math.random()*100+"%";
+    s.style.top = Math.random()*100+"%";
+    s.style.opacity = Math.random()*0.8+0.2;
+    s.style.animationDelay = (Math.random()*2)+"s";
+    stars.appendChild(s);
+  }
+}
+
+/* ======= GAME STATE ======= */
+let ORDER=[], Q_IDX=0, RIGHT=0, PER_Q_MS=15000;
+let orderTimer=null, orderStart=0;
+let active=false;
+
+/* ======= ELEMENTS ======= */
+const secHome = $('home'), secHow=$('howto'), secGame=$('game');
+const orderText=$('orderText'), timerFill=$('timerFill'), timerNum=$('timerNum');
+const hudName=$('hudName'), hudQ=$('hudQ'), hudRight=$('hudRight');
+const stageEl=$('stage'), feedback=$('feedback');
+const gamePop=$('gamePop'), gameScoreEl=$('gameScore'), remarkEl=$('remark');
+
+/* ======= TOKENS ======= */
+function removeAllTokens(){ document.querySelectorAll('#stage .token').forEach(n=>n.remove()); }
+function startMotion(){
+  const tokens = Array.from(document.querySelectorAll('#stage .token'));
+  function tick(){
+    const w = stageEl.clientWidth, h = stageEl.clientHeight;
+    tokens.forEach(el=>{
+      let vx = parseFloat(el.dataset.vx), vy = parseFloat(el.dataset.vy);
+      let x = parseFloat(el.dataset.x), y = parseFloat(el.dataset.y);
+      const rect = el.getBoundingClientRect();
+      const rW = rect.width/2, rH = rect.height/2;
+      x += vx; y += vy;
+      if(x < rW){ x = rW; vx *= -1; }
+      if(x > w - rW){ x = w - rW; vx *= -1; }
+      if(y < rH){ y = rH; vy *= -1; }
+      if(y > h - rH){ y = h - rH; vy *= -1; }
+      el.style.left = x + "px"; el.style.top = y + "px";
+      el.dataset.x = x; el.dataset.y = y; el.dataset.vx = vx; el.dataset.vy = vy;
+    });
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+function placeTokens(choices, odd){
+  removeAllTokens();
+  const w = stageEl.clientWidth, h = stageEl.clientHeight;
+  const shuffled = shuffle(choices);
+  shuffled.forEach(v=>{
+    const el = document.createElement('div'); el.className='token'; el.textContent = v;
+    const x = Math.random()*(w-280)+140, y = Math.random()*(h-220)+110;
+    const vx = (Math.random()<.5?-1:1)*(Math.random()*0.7+0.2), vy=(Math.random()<.5?-1:1)*(Math.random()*0.7+0.2);
+    el.style.left = x+'px'; el.style.top = y+'px';
+    el.dataset.x = x; el.dataset.y = y; el.dataset.vx = vx; el.dataset.vy = vy;
+    el.addEventListener('click', ()=>onPick(v, odd, el));
+    stageEl.appendChild(el);
+  });
+  startMotion();
+}
+
+/* ======= TIMER ======= */
+function startTimer(){
+  stopTimer();
+  active=true;
+  orderStart=Date.now();
+  timerFill.style.transform='scaleX(1)';
+  timerNum.textContent = Math.floor(PER_Q_MS/1000);
+  orderTimer=setInterval(()=>{
+    const e=Date.now()-orderStart, left=Math.max(0,1-e/PER_Q_MS);
+    timerFill.style.transform=`scaleX(${left})`;
+    const s=Math.ceil((PER_Q_MS-e)/1000); timerNum.textContent=Math.max(0,s);
+    if(e>=PER_Q_MS){
+      active=false;
+      showFeedback("หมดเวลา! → ข้อต่อไป", false); noSFX();
+      Q_IDX++; setTimeout(()=>nextQuestion(), 300);
+    }
+  }, 50);
+}
+function stopTimer(){ if(orderTimer){ clearInterval(orderTimer); orderTimer=null; }}
+
+/* ======= FLOW ======= */
+function startGame(){
+  buildStars();
+  const name = ($('playerName').value.trim()||'-'); hudName.textContent=name;
+  PER_Q_MS = parseInt($('timeSel').value,10)*1000;
+  ORDER = shuffle(QUIZ);
+  Q_IDX=0; RIGHT=0;
+  hide(secHome); hide(secHow); show(secGame);
+  nextQuestion();
+}
+function nextQuestion(){
+  stopTimer(); feedback.style.display='none'; removeAllTokens();
+  if(Q_IDX>=ORDER.length){
+    gameScoreEl.textContent = `${RIGHT} / ${ORDER.length}`;
+    remarkEl.textContent = RIGHT===20 ? "สุดยอด! เก่งมาก ⭐" : (RIGHT>=15 ? "เยี่ยมเลย! เกือบสมบูรณ์" : "ไม่เป็นไร รอบหน้าสู้ใหม่ 💪");
+    gamePop.style.display='flex'; confettiBurst();
+    return;
+  }
+  const item = ORDER[Q_IDX];
+  orderText.innerHTML = `หมวด: <span class="expr">${item.cat}</span> • เลือกคำที่ไม่เข้าพวก`;
+  placeTokens(item.choices, item.odd);
+  hudQ.textContent = (Q_IDX+1);
+  startTimer();
+}
+function onPick(val, odd, el){
+  if(!active) return;
+  active=false;
+  if(String(val)===String(odd)){
+    const r = el.getBoundingClientRect(); sparkleAt(r.left+r.width/2, r.top+r.height/2, 16);
+    okSFX(); RIGHT++; hudRight.textContent=RIGHT;
+    Q_IDX++; setTimeout(()=>nextQuestion(), 250);
+  }else{
+    noSFX(); showFeedback("ผิด! → ข้อต่อไป", false);
+    Q_IDX++; setTimeout(()=>nextQuestion(), 250);
+  }
+}
+function showFeedback(text, ok){
+  feedback.textContent = text; feedback.className = "feedback "+(ok?"ok":"no"); feedback.style.display='block';
+  setTimeout(()=>feedback.style.display='none', 900);
+}
+
+/* ======= BUTTONS ======= */
+$('startBtn').addEventListener('click', startGame);
+$('howBtn').addEventListener('click', ()=>{ hide($('home')); show($('howto')); });
+$('backHome1').addEventListener('click', ()=>{ hide($('howto')); show($('home')); });
+$('quitBtn').addEventListener('click', ()=>{ hide($('game')); show($('home')); removeAllTokens(); stopTimer(); });
+$('skipBtn').addEventListener('click', ()=>{ if(!active){ Q_IDX++; nextQuestion(); } else { active=false; Q_IDX++; nextQuestion(); } });
+$('playAgainBtn').addEventListener('click', ()=>{ $('gamePop').style.display='none'; startGame(); });
+$('homeBtn2').addEventListener('click', ()=>{ $('gamePop').style.display='none'; hide($('game')); show($('home')); });
+
+</script>
+</body>
+</html>
